@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  type="text/css" href="style.css" >
+    <style>
+        .stem{
+             cursor: pointer;
+        }
+        .stem .correct{
+            color: green;
+            font-weight: bolder;
+            margin-left: 20px;
+        }
+        .stem .wrong{
+            color: red;
+            font-weight: bolder;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button>开始答题</button>
+    <ul>
+       
+    </ul>
+   <script src="ajax.js"></script>
+   <script>
+        var btn = document.querySelector('button')
+        var ul = document.querySelector('ul')
+        btn.onclick = function(){
+            ajax({
+            method:'GET',
+            url:'./dati.json',
+            callback:function(res){
+                var textObj = JSON.parse(res)
+                console.log(textObj)
+                ul.innerHTML = ''
+                var index = Math.floor(Math.random()*300)
+                console.log(index,textObj[index])
+                var li = document.createElement('li')
+                li.innerHTML = `
+                    <h3>${textObj[index].quiz}</h3>
+                    <h4 class='stem' id="A">A.${textObj[index].options[0]}</h4>
+                    <h4 class='stem' id="B">B.${textObj[index].options[1]}</h4>
+                    <h4 class='stem' id="C">C.${textObj[index].options[2]}</h4>
+                    <h4 class='stem' id="D">D.${textObj[index].options[3]}</h4>
+                `
+                ul.appendChild(li)
+                var stemA = document.querySelector('#A')
+                // console.log(stemA)
+                var stemB = document.querySelector('#B')
+                var stemC = document.querySelector('#C')
+                var stemD = document.querySelector('#D')
+                var correctAnswer = {
+                    1:'A',
+                    2:'B',
+                    3:'C',
+                    4:'D'
+                }
+                console.log(correctAnswer[textObj[index].answer])
+                stemA.onclick = function(){
+                    var stemAnwser = 1
+                    if(textObj[index].answer == stemAnwser){
+                        stemA.innerHTML += '<span class="correct">恭喜你答对了</span>';
+                        
+                    }   
+                    else{
+                        stemA.innerHTML += '<span class="wrong">答错了，正确答案为'+ correctAnswer[textObj[index].answer]+'</span>'
+                    }
+                    stemA.onclick = ''
+                    stemB.onclick = ''
+                    stemC.onclick = ''
+                    stemD.onclick = ''
+                }
+                stemB.onclick = function(){
+                    var stemAnwser = 2
+                    if(textObj[index].answer == stemAnwser){
+                        stemB.innerHTML += '<span class="correct">恭喜你答对了</span>'
+                    }   
+                    else{
+                        stemB.innerHTML += '<span class="wrong">答错了，正确答案为'+ correctAnswer[textObj[index].answer]+'</span>'
+                    }
+                    stemA.onclick = ''
+                    stemB.onclick = ''
+                    stemC.onclick = ''
+                    stemD.onclick = ''
+                }
+                stemC.onclick = function(){
+                    var stemAnwser = 3
+                    if(textObj[index].answer == stemAnwser){
+                        stemC.innerHTML += '<span class="correct">恭喜你答对了</span>'
+                    }   
+                    else{
+                        stemC.innerHTML += '<span class="wrong">答错了，正确答案为'+ correctAnswer[textObj[index].answer]+'</span>'
+                    }
+                    stemA.onclick = ''
+                    stemB.onclick = ''
+                    stemC.onclick = ''
+                    stemD.onclick = ''
+                }
+                stemD.onclick = function(){
+                    var stemAnwser = 4
+                    if(textObj[index].answer == stemAnwser){
+                        stemD.innerHTML += '<span class="correct">恭喜你答对了</span>'
+                    }   
+                    else{
+                        stemD.innerHTML += '<span class="wrong">答错了，正确答案为'+ correctAnswer[textObj[index].answer]+'</span>'
+                    }
+                    stemA.onclick = ''
+                    stemB.onclick = ''
+                    stemC.onclick = ''
+                    stemD.onclick = ''
+                }
+                // var itemli = document.getElementsByTagName("li");
+                //     for(var i = 0; i<itemli.length; i++){
+                //         itemli[i].index = i; //给每个li定义一个属性索引值，赋
+                //         itemli[i].onclick = function(){
+                //             alert("下标索引值为："+this.index+"\n"+"文本内容是："+this.innerHTML);    //  \n换行   索
+                //             console.log(itemli[i])
+                //         }
+                //     } 
+                
+                
+                // var onlickAnswer = h4.data-index
+                // console.log(onlickAnswer)
+                
+                // var h4List = document.querySelectorAll('h4')
+                // console.log(h4List)
+                // h4.onclick = function(){
+                //     console.log(h4)
+                //     
+                //     }
+                // }    
+                }
+            })
+        }
+        
+   </script>
+</body>
+</html>
